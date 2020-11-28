@@ -1,7 +1,7 @@
 apiVersion: th2.exactpro.com/v1
-kind: Th2Generic
+kind: Th2Box
 metadata:
-  name: codec
+  name: codec-sim-fix
 spec:
   image-name: ghcr.io/th2-net/th2-codec-fix
   image-version: 2.1.0
@@ -61,38 +61,6 @@ spec:
         - general_decoder_out
         - parsed
         - publish
-    - name: out_codec_decode_demo-conn1
-      connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-conn1
-              operation: EQUAL
-    - name: out_codec_decode_demo-conn2
-      connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-conn2
-              operation: EQUAL
-    - name: out_codec_decode_demo-dc1
-      connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-dc1
-              operation: EQUAL
-    - name: out_codec_decode_demo-dc2
-      connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-dc2
-              operation: EQUAL
     - name: out_codec_decode_fix-demo-server1
       connection-type: mq
       attributes: ['decoder_out', 'parsed', 'publish']

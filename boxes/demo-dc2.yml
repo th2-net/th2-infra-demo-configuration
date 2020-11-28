@@ -1,16 +1,16 @@
 apiVersion: th2.exactpro.com/v1
-kind: Th2Generic
+kind: Th2Box
 metadata:
-  name: demo-dc1
+  name: demo-dc2
 spec:
   image-name: ghcr.io/th2-net/th2-conn-fix
   image-version: 2.1.0
   type: th2-conn
   custom-config:
-    session-alias: demo-dc1
+    session-alias: demo-dc2
     workspace: /home/sailfish/workspace
     type: th2_service:FIX_Client
-    name: demo-dc1
+    name: demo-dc2
     settings:
       autoStartable: true
       expectedTimeOfStarting: 2000
@@ -34,7 +34,7 @@ spec:
       rejectInvalidMessage: false
       resetOnDisconnect: false
       resetOnLogout: false
-      senderCompID: DEMO-DC1
+      senderCompID: DEMO-DC2
       startTime: 00:00:00
       targetCompID: FGW
       useLocalTime: false
@@ -49,7 +49,7 @@ spec:
       doLogonOnStart: true
       encryptPassword: false
       fakeResendRequest: true
-      heartBtInt: 6000
+      heartBtInt: 30
       idleTimeout: 0
       ignoreAbsenceOf141tag: false
       logonTimeout: 10
@@ -60,7 +60,7 @@ spec:
       resetSeqNumFlag: true
       seqNumSender: 0
       seqNumTarget: 0
-      socketConnectHost: dc-demo-server1
+      socketConnectHost: dc-demo-server2
       socketConnectPort: 8080
       useDefaultApplVerID: true
   pins:
@@ -101,7 +101,7 @@ spec:
       filters:
         - metadata:
             - field-name: session_alias
-              expected-value: demo-dc1
+              expected-value: demo-dc2
               operation: EQUAL
   extended-settings:
     chart-cfg:

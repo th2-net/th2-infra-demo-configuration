@@ -1,5 +1,5 @@
 apiVersion: th2.exactpro.com/v1
-kind: Th2Generic
+kind: Th2Box
 metadata:
   name: read-log-refdata
 spec:

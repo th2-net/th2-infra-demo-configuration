@@ -1,5 +1,5 @@
 apiVersion: th2.exactpro.com/v1
-kind: Th2Generic
+kind: Th2Box
 metadata:
   name: demo-conn2
 spec:
@@ -49,7 +49,7 @@ spec:
       doLogonOnStart: true
       encryptPassword: false
       fakeResendRequest: true
-      heartBtInt: 6000
+      heartBtInt: 30
       idleTimeout: 0
       ignoreAbsenceOf141tag: false
       logonTimeout: 10

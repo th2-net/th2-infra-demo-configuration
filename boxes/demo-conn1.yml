@@ -1,16 +1,16 @@
 apiVersion: th2.exactpro.com/v1
-kind: Th2Generic
+kind: Th2Box
 metadata:
-  name: fix-demo-server2
+  name: demo-conn1
 spec:
   image-name: ghcr.io/th2-net/th2-conn-fix
   image-version: 2.1.0
   type: th2-conn
   custom-config:
-    session-alias: fix-demo-server2
+    session-alias: demo-conn1
     workspace: /home/sailfish/workspace
-    type: th2_service:FIX_Server
-    name: fix-demo-server2
+    type: th2_service:FIX_Client
+    name: demo-conn1
     settings:
       autoStartable: true
       expectedTimeOfStarting: 2000
@@ -25,7 +25,7 @@ spec:
       duplicateTagsAllowed: false
       endTime: 00:00:00
       fileStorePath: store/fix/sessions
-      logHeartbeats: true
+      logHeartbeats: false
       maxLatency: 120
       microsecondsInTimeStampFields: false
       millisecondsInTimeStampFields: true
@@ -34,9 +34,9 @@ spec:
       rejectInvalidMessage: false
       resetOnDisconnect: false
       resetOnLogout: false
-      senderCompID: FGW
+      senderCompID: DEMO-CONN1
       startTime: 00:00:00
-      targetCompID: DEMO-CONN2
+      targetCompID: FGW
       useLocalTime: false
       useSSL: false
       validateFieldsHaveValues: true
@@ -44,9 +44,25 @@ spec:
       validateFieldsOutOfRange: true
       validateSequenceNumbers: true
       validateUserDefinedFields: true
-      applicationClassName: com.exactpro.sf.services.fix.ServerApplication
-      keepMessagesInMemory: true
-      socketAcceptPort: 8099
+      addNextExpectedMsgSeqNum: false
+      autorelogin: true
+      doLogonOnStart: true
+      encryptPassword: false
+      fakeResendRequest: true
+      heartBtInt: 30
+      idleTimeout: 0
+      ignoreAbsenceOf141tag: false
+      logonTimeout: 10
+      logoutTimeout: 10
+      performanceMode: false
+      reconnectInterval: 5
+      requiresOrigSendingTime: true
+      resetSeqNumFlag: true
+      seqNumSender: 0
+      seqNumTarget: 0
+      socketConnectHost: fix-demo-server1
+      socketConnectPort: 8080
+      useDefaultApplVerID: true
   pins:
     - name: in
       connection-type: mq
@@ -61,31 +77,39 @@ spec:
         - first
         - raw
         - publish
+        - store
     - name: out
       connection-type: mq
       attributes:
         - second
         - parsed
         - publish
+        - store
     - name: out_raw
       connection-type: mq
       attributes:
         - second
         - raw
         - publish
+        - store
     - name: fix_to_send
       connection-type: mq
       attributes:
         - send
         - parsed
         - subscribe
+      filters:
+        - metadata:
+            - field-name: session_alias
+              expected-value: demo-conn1
+              operation: EQUAL
   extended-settings:
     chart-cfg:
       ref: schema-stable
       path: custom-component
     service:
       enabled: true
-      targetPort: '8099'
+      targetPort: '9901'
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:
