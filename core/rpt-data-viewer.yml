@@ -7,13 +7,10 @@ spec:
   image-version: 2.0.18
   type: th2-rpt-viewer
   extended-settings:
-    chart-cfg:
-      ref: schema-stable
-      path: custom-component
     service:
       enabled: false
       targetPort: 80
-      nodePort: '31986'
+      nodePort: "31986"
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

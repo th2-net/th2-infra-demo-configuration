@@ -43,12 +43,9 @@ spec:
               expected-value: demo-conn2
               operation: EQUAL
   extended-settings:
-    chart-cfg:
-      ref: schema-stable
-      path: custom-component
     service:
       enabled: true
-      nodePort: '31988'
+      nodePort: "31988"
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

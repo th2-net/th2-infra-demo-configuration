@@ -6,13 +6,10 @@ spec:
   image-name: ghcr.io/th2-net/th2-mstore
   image-version: 2.3.0
   extended-settings:
-    chart-cfg:
-      ref: schema-stable
-      path: custom-component
     service:
       enabled: false
     envVariables:
-      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout=\"5000 milliseconds\""
+      JAVA_TOOL_OPTIONS: '-XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000 milliseconds"'
     resources:
       limits:
         memory: 300Mi

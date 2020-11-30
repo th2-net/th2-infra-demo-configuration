@@ -104,12 +104,9 @@ spec:
               expected-value: demo-dc1
               operation: EQUAL
   extended-settings:
-    chart-cfg:
-      ref: schema-stable
-      path: custom-component
     service:
       enabled: true
-      targetPort: '9901'
+      targetPort: "9901"
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

@@ -73,9 +73,6 @@ spec:
         - dc-demo-server2
 
   extended-settings:
-    chart-cfg:
-      ref: schema-stable
-      path: custom-component
     service:
       enabled: false
     envVariables:

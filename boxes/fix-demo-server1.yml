@@ -80,12 +80,9 @@ spec:
         - parsed
         - subscribe
   extended-settings:
-    chart-cfg:
-      ref: schema-stable
-      path: custom-component
     service:
       enabled: true
-      targetPort: '8089'
+      targetPort: "8089"
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

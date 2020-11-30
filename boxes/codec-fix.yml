@@ -63,7 +63,7 @@ spec:
         - publish
     - name: out_codec_decode_demo-conn1
       connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
+      attributes: ["decoder_out", "parsed", "publish"]
       filters:
         - metadata:
             - field-name: session_alias
@@ -71,7 +71,7 @@ spec:
               operation: EQUAL
     - name: out_codec_decode_demo-conn2
       connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
+      attributes: ["decoder_out", "parsed", "publish"]
       filters:
         - metadata:
             - field-name: session_alias
@@ -79,7 +79,7 @@ spec:
               operation: EQUAL
     - name: out_codec_decode_demo-dc1
       connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
+      attributes: ["decoder_out", "parsed", "publish"]
       filters:
         - metadata:
             - field-name: session_alias
@@ -87,7 +87,7 @@ spec:
               operation: EQUAL
     - name: out_codec_decode_demo-dc2
       connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
+      attributes: ["decoder_out", "parsed", "publish"]
       filters:
         - metadata:
             - field-name: session_alias
@@ -95,7 +95,7 @@ spec:
               operation: EQUAL
     - name: out_codec_decode_fix-demo-server1
       connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
+      attributes: ["decoder_out", "parsed", "publish"]
       filters:
         - metadata:
             - field-name: session_alias
@@ -103,16 +103,13 @@ spec:
               operation: EQUAL
     - name: out_codec_decode_fix-demo-server2
       connection-type: mq
-      attributes: ['decoder_out', 'parsed', 'publish']
+      attributes: ["decoder_out", "parsed", "publish"]
       filters:
         - metadata:
             - field-name: session_alias
               expected-value: fix-demo-server2
               operation: EQUAL
   extended-settings:
-    chart-cfg:
-      ref: schema-stable
-      path: custom-component
     service:
       enabled: false
     envVariables:
