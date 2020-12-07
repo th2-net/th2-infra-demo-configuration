@@ -28,11 +28,6 @@ spec:
         match_timeout: 300
         match_timeout_offset_ns: 0
         configuration: ""
-      - name: "refData_vs_demo_conn"
-        enabled: true
-        match_timeout: 300
-        match_timeout_offset_ns: 0
-        configuration: ""          
   pins:
     - name: incoming 
       connection-type: mq
