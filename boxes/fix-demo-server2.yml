@@ -46,7 +46,7 @@ spec:
       validateUserDefinedFields: true
       applicationClassName: com.exactpro.sf.services.fix.ServerApplication
       keepMessagesInMemory: true
-      socketAcceptPort: 8099
+      socketAcceptPort: 8080
   pins:
     - name: in
       connection-type: mq
@@ -82,7 +82,10 @@ spec:
   extended-settings:
     service:
       enabled: true
-      targetPort: "8099"
+      type: ClusterIP
+      endpoints:
+        - name: 'other'
+          targetPort: 8080
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

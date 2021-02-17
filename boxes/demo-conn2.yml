@@ -106,7 +106,6 @@ spec:
   extended-settings:
     service:
       enabled: true
-      targetPort: "9901"
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

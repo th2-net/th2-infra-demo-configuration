@@ -7,7 +7,7 @@ spec:
   image-version: 2.4.5
   type: th2-read
   custom-config:
-    session-alias: "demo_log.txt"
+    session-alias: "demo-log"
     log-directory: "/logsToRead"
     file-filter-regexp: ".*demo_log.*"
     regexp: "8=FIX.+10=.+\\b\\u0001"

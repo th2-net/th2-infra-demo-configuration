@@ -8,7 +8,7 @@ spec:
     router-grpc:
       - name: script-to-act
         from:
-          service-class: com.exactpro.th2.check1.ActHandler
+          service-class: com.exactpro.th2.act.ActHandler
           strategy: filter
           box: script-entry-point
           pin: to_act

@@ -4,7 +4,7 @@ metadata:
   name: sim-demo
 spec:
   image-name: ghcr.io/th2-net/th2-sim-template
-  image-version: 2.2.0
+  image-version: 2.3.5
   type: th2-sim
   custom-config:
     defaultRules:

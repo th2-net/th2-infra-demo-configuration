@@ -4,7 +4,7 @@ metadata:
   name: check1
 spec:
   image-name: ghcr.io/th2-net/th2-check1
-  image-version: 2.4.0
+  image-version: 2.4.1
   custom-config:
     message-cache-size: "1000"
     cleanup-older-than: "60"
@@ -21,15 +21,19 @@ spec:
   extended-settings:
     service:
       enabled: true
-      nodePort: "31989"
+      type: NodePort
+      endpoints:
+      - name: grpc
+        targetPort: 8080
+        nodePort: 31989
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:
       limits:
-        memory: 200Mi
+        memory: 400Mi
         cpu: 200m
       requests:
-        memory: 100Mi
+        memory: 200Mi
         cpu: 20m
     #      mounitng:
     #        TBD

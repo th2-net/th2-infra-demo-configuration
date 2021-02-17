@@ -5,13 +5,13 @@ metadata:
 spec:
   boxes-relation:
     router-grpc:
-      - name: recon-to-util
-        from:
-          strategy: filter
-          box: recon
-          pin: to_util
-        to:
-          service-class: com.exactpro.th2.util.grpc.MessageComparatorServiceService
-          strategy: robin
-          box: util
-          pin: server
+    - name: recon-to-util
+      from:
+        strategy: filter
+        box: recon
+        pin: to_util
+      to:
+        service-class: com.exactpro.th2.util.grpc.MessageComparatorServiceService
+        strategy: robin
+        box: util
+        pin: server
