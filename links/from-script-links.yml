@@ -1,0 +1,30 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Link
+metadata:
+  name: from-script-links
+spec:
+  boxes-relation:
+##############################################################################
+    router-grpc:
+      - name: script-to-act
+        from:
+          service-class: com.exactpro.th2.check1.ActHandler
+          strategy: filter
+          box: script-entry-point
+          pin: to_act
+        to:
+          service-class: com.exactpro.th2.act.grpc.ActService
+          strategy: robin
+          box: act-fix
+          pin: server
+      - name: script-to-check1
+        from:
+          service-class: com.exactpro.th2.check1.Check1Handler
+          strategy: filter
+          box: script-entry-point
+          pin: to_check1
+        to:
+          service-class: com.exactpro.th2.check1.grpc.Check1Service
+          strategy: robin
+          box: check1
+          pin: server
