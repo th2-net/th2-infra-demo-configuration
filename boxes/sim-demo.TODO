@@ -3,8 +3,9 @@ kind: Th2Box
 metadata:
   name: sim-demo
 spec:
-  image-name: ghcr.io/th2-net/th2-sim-template
-  image-version: 2.3.5
+  #TO DO
+  image-name: stub
+  image-version: stub
   type: th2-sim
   custom-config:
     defaultRules:
@@ -35,6 +36,9 @@ spec:
         - first
         - subscribe
         - parsed
+      settings:
+        storageOnDemand: false
+        queueLength: 1000
     - name: send1
       queue: demo-conn-first-parsed
       exchange: demo_exchange
@@ -71,8 +75,9 @@ spec:
         - publish
         - parsed
         - dc-demo-server2
-
   extended-settings:
+    externalBox:
+      enabled: true
     service:
       enabled: false
     envVariables:
@@ -84,5 +89,5 @@ spec:
       requests:
         memory: 100Mi
         cpu: 20m
-#      mounitng:
-#        TBD
+  prometheus:
+    enabled: false

@@ -6969,7 +6969,7 @@ spec:
             </field>
             <field id="field-MarketID" name="MarketID" type="java.lang.String">
                 <attribute name="tag" type="java.lang.Integer">1301</attribute>
-                <attribute name="fixtype" type="java.lang.String">MARKETID</attribute>
+                <attribute name="fixtype" type="java.lang.String">STRING</attribute>
             </field>
             <field id="field-RejectText" name="RejectText" type="java.lang.String">
                 <attribute name="tag" type="java.lang.Integer">1328</attribute>

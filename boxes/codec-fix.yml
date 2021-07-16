@@ -4,7 +4,7 @@ metadata:
   name: codec-fix
 spec:
   image-name: ghcr.io/th2-net/th2-codec-fix
-  image-version: 2.2.1
+  image-version: 3.4.1
   type: th2-codec
   custom-config:
     codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
@@ -35,6 +35,7 @@ spec:
         - decoder_out
         - parsed
         - publish
+        - store
     # encoder general (technical)
     - name: in_codec_general_encode
       connection-type: mq
@@ -61,67 +62,15 @@ spec:
         - general_decoder_out
         - parsed
         - publish
-    - name: out_codec_decode_demo-conn1
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-conn1
-              operation: EQUAL
-    - name: out_codec_decode_demo-conn2
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-conn2
-              operation: EQUAL
-    - name: out_codec_decode_demo-dc1
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-dc1
-              operation: EQUAL
-    - name: out_codec_decode_demo-dc2
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-dc2
-              operation: EQUAL
-    #out_codec_decode_fix-demo-server1
-    - name: out_fix-demo-server1
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: fix-demo-server1
-              operation: EQUAL
-    #out_codec_decode_fix-demo-server2
-    - name: out_fix-demo-server2
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: fix-demo-server2
-              operation: EQUAL
   extended-settings:
     service:
       enabled: false
     envVariables:
-      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85"
     resources:
       limits:
-        memory: 200Mi
+        memory: 250Mi
         cpu: 200m
       requests:
         memory: 100Mi
         cpu: 20m
-#      mounitng:
-#        TBD

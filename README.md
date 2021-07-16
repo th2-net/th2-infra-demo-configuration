@@ -1,3 +1,12 @@
+## Version (this version is under development) ##
+
+This version based on infra 1.5.3
+
+Components versions are updated. 
+Please note that messages from act-fix to conn now pass through codec-fix encoder.
+
+###Work in progress:
+We want to provide you with a convenient example of the operation of our components for reading logs and csv-files, as well as reconciliation of data obtained from these sources. At the moment, we are looking for a convenient way to work with files on this test bench.
 ## Configuring Schema ##
 
 Schema can be configured to be deployed to kubernetes and managed by infra manager.
@@ -5,7 +14,7 @@ Behaviour is controlled by `k8s-propagation` property in the `infra-mgr-config.y
 These are the possible values for this property:
 
 - `off`  - No synchronization will be done
-- `deny` - No synchronization will be done and associated namespece will be removed from the kubernetes
+- `deny` - No synchronization will be done and associated namespace will be removed from the kubernetes
 - `sync` - Synchronizes repository changes with kubernetes
 - `rule` - Synchronizes repository changes with kubernetes. Also monitors resource changes in kubernetes and 
          brings them back to repository state
@@ -29,10 +38,10 @@ There are two methods to restart the namespace
 
 **Involving kubernetes**
 1) set `k8s-propagation` property in `infra-mgr-config.yml` to `rule` and commit this change.
-2) delete existing namespace using `kubectl delete namespace NAMESPACE_NAME` command. Schema will be redeployed automatically after 30-60 secs
+2) delete an existing namespace using `kubectl delete namespace NAMESPACE_NAME` command. Schema will be redeployed automatically after 30-60 secs
 
 ## Restarting single component
 in order to restart single component just delete `pod` of that specific component using `kubectl delete pod POD_NAME -n POD_NAMESPACE` command or using kubernetes dashboard (if you have necessary privileges). After deleting, `pod` will be recreated automatically.  
 
 ## Environment schema
-![alt text](schema.png)
+![alt text](schema.jpg)

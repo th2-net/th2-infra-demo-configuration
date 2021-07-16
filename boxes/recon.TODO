@@ -3,16 +3,33 @@ kind: Th2Box
 metadata:
   name: recon
 spec:
-  image-name: nexus.exactpro.com:9000/th2-check2-recon-template
-  image-version: 2.1.14
+  # TO DO
+  image-name: 
+  image-version: 
   type: th2-check2-recon
   custom-config:
     recon_name: Demo_Recon
-    cache_size: 100
+    cache_size: 500
     event_batch_max_size: 10
     event_batch_send_interval: 1
     rules_package_path: rules
     rules:
+      - name: "hand_vs_csv_NOS"
+        enabled: true
+        match_timeout: 2300
+        match_timeout_offset_ns: 0
+        configuration:
+          csv_test.csv: "NOS_CSV"
+          demo-conn1: "NOS_CONN"
+          demo-conn2: "NOS_CONN"
+      - name: "hand_vs_csv_ER"
+        enabled: true
+        match_timeout: 2300
+        match_timeout_offset_ns: 0
+        configuration:
+          csv_test.csv: "ER_CSV"
+          demo-conn1: "ER_CONN"
+          demo-conn2: "ER_CONN"
       - name: "demo_conn1_vs_demo_conn2"
         enabled: true
         match_timeout: 300
@@ -29,7 +46,7 @@ spec:
           demo-conn2: "NOS_CONN"
           demo-log: "NOS_LOG"
   pins:
-    - name: incoming 
+    - name: incoming
       connection-type: mq
       attributes:
         - parsed
@@ -41,7 +58,7 @@ spec:
       enabled: "false"
     resources:
       limits:
-        memory: 200Mi
+        memory: 400Mi
         cpu: 200m
       requests:
         memory: 100Mi

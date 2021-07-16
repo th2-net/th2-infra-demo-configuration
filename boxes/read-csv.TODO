@@ -1,0 +1,35 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: read-csv
+spec:
+  image-name: ghcr.io/th2-net/th2-read-csv
+  image-version: 1.0.1
+  type: th2-read
+  custom-config:
+    sourceDirectory: "/outputs/"
+    aliases:
+      csv_test:
+        nameRegexp: "csv_test.csv"
+  pins:
+    - name: out_log
+      connection-type: mq
+      attributes:
+        - raw
+        - publish
+        - store
+  extended-settings:
+    service:
+      enabled: false
+    envVariables:
+      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+    mounting:
+      - path: "/outputs"
+        pvcName: components
+    resources:
+      limits:
+        memory: 200Mi
+        cpu: 200m
+      requests:
+        memory: 100Mi
+        cpu: 50m

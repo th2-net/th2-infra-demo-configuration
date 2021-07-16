@@ -4,7 +4,7 @@ metadata:
   name: act-fix
 spec:
   image-name: ghcr.io/th2-net/th2-act-template-j
-  image-version: 2.4.1
+  image-version: 3.4.1
   type: th2-act
   pins:
     # Server
@@ -22,26 +22,11 @@ spec:
         - oe
         - subscribe
         - parsed
-    - name: to_send_demo-conn1
+    - name: to_send
       connection-type: mq
       attributes:
         - publish
         - parsed
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-conn1
-              operation: EQUAL
-    - name: to_send_demo-conn2
-      connection-type: mq
-      attributes:
-        - publish
-        - parsed
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: demo-conn2
-              operation: EQUAL
   extended-settings:
     service:
       enabled: true
@@ -49,7 +34,7 @@ spec:
       endpoints:
         - name: 'grpc'
           targetPort: 8080
-          nodePort: 31988
+          nodePort: 31178
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

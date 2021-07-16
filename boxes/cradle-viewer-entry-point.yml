@@ -12,7 +12,6 @@ spec:
       attributes:
         - raw
         - publish
-
     - name: from_codec
       connection-type: mq
       storageOnDemand: false
@@ -20,16 +19,11 @@ spec:
       attributes:
         - parsed
         - subscribe
-
   extended-settings:
     externalBox:
       enabled: true
-      address: 10.44.17.90
       endpoints:
         - name: 'grpc'
           targetPort: 3334
     service:
       enabled: false
-
-      
-

@@ -4,7 +4,7 @@ metadata:
   name: fix-demo-server2
 spec:
   image-name: ghcr.io/th2-net/th2-conn-fix
-  image-version: 2.1.0
+  image-version: 3.2.1
   type: th2-conn
   custom-config:
     session-alias: fix-demo-server2
@@ -48,24 +48,11 @@ spec:
       keepMessagesInMemory: true
       socketAcceptPort: 8080
   pins:
-    - name: in
-      connection-type: mq
-      attributes:
-        - first
-        - parsed
-        - publish
-        - store
     - name: in_raw
       connection-type: mq
       attributes:
         - first
         - raw
-        - publish
-    - name: out
-      connection-type: mq
-      attributes:
-        - second
-        - parsed
         - publish
     - name: out_raw
       connection-type: mq
@@ -77,15 +64,16 @@ spec:
       connection-type: mq
       attributes:
         - send
-        - parsed
+        - raw
         - subscribe
+      filters:
+        - metadata:
+            - field-name: session_alias
+              expected-value: fix-demo-server2
+              operation: EQUAL
   extended-settings:
     service:
       enabled: true
-      type: ClusterIP
-      endpoints:
-        - name: 'other'
-          targetPort: 8080
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:
@@ -95,5 +83,3 @@ spec:
       requests:
         memory: 100Mi
         cpu: 20m
-#      mounitng:
-#        TBD

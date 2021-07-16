@@ -4,14 +4,15 @@ metadata:
   name: read-log
 spec:
   image-name: ghcr.io/th2-net/th2-read-log
-  image-version: 2.4.5
+  image-version: 3.1.0
   type: th2-read
   custom-config:
-    session-alias: "demo-log"
-    log-directory: "/logsToRead"
-    file-filter-regexp: ".*demo_log.*"
-    regexp: "8=FIX.+10=.+\\b\\u0001"
-    regexp-groups: [0]
+    logDirectory: "/outputs"
+    aliases:
+      demo-log:
+        regexp: "8=FIX.+10=.+\\b\\u0001"
+        pathFilter: ".*log_test.*"
+        groups: [0]
   pins:
     - name: read_log_demo_out
       connection-type: mq
@@ -25,7 +26,7 @@ spec:
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     mounting:
-      - path: "/logsToRead"
+      - path: "/outputs"
         pvcName: components
     resources:
       limits:
