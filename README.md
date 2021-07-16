@@ -1,3 +1,5 @@
+## Version ##
+An outdated version based on infra 1.3.0
 ## Configuring Schema ##
 
 Schema can be configured to be deployed to kubernetes and managed by infra manager.
