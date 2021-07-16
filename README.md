@@ -5,7 +5,7 @@ This version based on infra 1.5.3
 Components versions are updated. 
 Please note that messages from act-fix to conn now pass through codec-fix encoder.
 
-###Work in progress:
+### Work in progress:
 We want to provide you with a convenient example of the operation of our components for reading logs and csv-files, as well as reconciliation of data obtained from these sources. At the moment, we are looking for a convenient way to work with files on this test bench.
 ## Configuring Schema ##
 
