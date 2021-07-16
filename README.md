@@ -44,4 +44,4 @@ There are two methods to restart the namespace
 in order to restart single component just delete `pod` of that specific component using `kubectl delete pod POD_NAME -n POD_NAMESPACE` command or using kubernetes dashboard (if you have necessary privileges). After deleting, `pod` will be recreated automatically.  
 
 ## Environment schema
-![alt text](schema.jpg)
+![alt text](schema-ver-153.png)
