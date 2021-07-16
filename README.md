@@ -1,3 +1,13 @@
+## Version 1.5.3
+WIP
+## Environment schema
+![alt text](schema-ver-153.png)
+## Version 1.3.0
+Released
+## Environment schema
+![alt text](schema-ver-130.png)
+
+
 ## Configuring Schema ##
 
 Schema can be configured to be deployed to kubernetes and managed by infra manager.
@@ -34,5 +44,3 @@ There are two methods to restart the namespace
 ## Restarting single component
 in order to restart single component just delete `pod` of that specific component using `kubectl delete pod POD_NAME -n POD_NAMESPACE` command or using kubernetes dashboard (if you have necessary privileges). After deleting, `pod` will be recreated automatically.  
 
-## Environment schema
-![alt text](schema.png)
