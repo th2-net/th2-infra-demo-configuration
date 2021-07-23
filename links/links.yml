@@ -153,25 +153,25 @@ spec:
       - name: provider-to-codec
         from:
           box: rpt-data-provider
-          pin: to_codec
+          pin: to_codec_fix
         to:
           box: codec-fix
-          pin: in_codec_general_decode
+          pin: in_codec_decode
 ##############################################################################
 #####################RPT-DATA-PROVIDER -> CODEC-FIX-DEMO######################
       - name: provider-to-codec-demo
         from:
           box: rpt-data-provider
-          pin: to_codec
+          pin: to_codec_fix
         to:
           box: codec-fix-demo
-          pin: in_codec_general_decode
+          pin: in_codec_decode
 ##############################################################################
 #####################CODEC-FIX -> RPT-DATA-PROVIDER###########################
       - name: codec-to-provider
         from:
           box: codec-fix
-          pin: out_codec_general_decode
+          pin: out_codec_decode
         to:
           box: rpt-data-provider
           pin: from_codec
@@ -180,7 +180,7 @@ spec:
       - name: codec-fix-demo-to-provider
         from:
           box: codec-fix-demo
-          pin: out_codec_general_decode
+          pin: out_codec_decode
         to:
           box: rpt-data-provider
           pin: from_codec
@@ -189,16 +189,16 @@ spec:
       - name: provider-to-codec-c
         from:
           box: rpt-data-provider
-          pin: to_codec
+          pin: to_codec_csv
         to:
           box: codec-csv
-          pin: in_codec_general_decode
+          pin: in_codec_decode
 ##############################################################################
 #####################CODEC-CSV -> RPT-DATA-PROVIDER###########################
       - name: codec-c-to-provider
         from:
           box: codec-csv
-          pin: out_codec_general_decode
+          pin: out_codec_decode
         to:
           box: rpt-data-provider
           pin: from_codec
@@ -228,13 +228,13 @@ spec:
           pin: to_codec
         to:
           box: codec-fix
-          pin: in_codec_general_decode
+          pin: in_codec_decode
 ##############################################################################
 #####################CODEC-FIX -> CRADLE-VIEWER###############################
       - name: codec-to-cradle-viewer
         from:
           box: codec-fix
-          pin: out_codec_general_decode
+          pin: out_codec_decode
         to:
           box: cradle-viewer-entry-point
           pin: from_codec

@@ -22,6 +22,7 @@ spec:
       attributes:
         # enter the target session name here
         - demo-conn1
+        - demo-conn2
         - to_conn
         - parsed
         - publish

@@ -4,7 +4,7 @@ metadata:
   name: rpt-data-provider
 spec:
   image-name: ghcr.io/th2-net/th2-rpt-data-provider
-  image-version: 5.2.5
+  image-version: 5.0.15
   type: th2-rpt-data-provider
   custom-config:
     hostname: localhost
@@ -25,7 +25,7 @@ spec:
     cradleDispatcherPoolSize: 15
     eventSearchChunkSize: 10000
   pins:
-    - name: to_codec
+    - name: to_codec_fix
       connection-type: mq
       attributes:
         - to_codec
@@ -42,14 +42,7 @@ spec:
         - to_codec
         - raw
         - publish
-        - csv_test.csv
-    - name: to_codec_hand
-      connection-type: mq
-      attributes:
-        - to_codec
-        - raw
-        - publish
-        - th2-hand-demo
+        - demo-csv
     - name: from_codec
       connection-type: mq
       attributes:

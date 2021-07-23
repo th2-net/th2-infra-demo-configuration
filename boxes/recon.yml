@@ -4,8 +4,8 @@ metadata:
   name: recon
 spec:
   # TO DO
-  image-name: 
-  image-version: 
+  image-name: ghcr.io/th2-net/th2-check2-recon-template
+  image-version: 3.3.1.dev1059626422
   type: th2-check2-recon
   custom-config:
     recon_name: Demo_Recon
@@ -14,37 +14,46 @@ spec:
     event_batch_send_interval: 1
     rules_package_path: rules
     rules:
-      - name: "hand_vs_csv_NOS"
+      - name: "Match_Orders_between_fix_and_csv_file"
         enabled: true
-        match_timeout: 2300
+        match_timeout: 300000
         match_timeout_offset_ns: 0
         configuration:
-          csv_test.csv: "NOS_CSV"
+          demo-csv: "NOS_CSV"
           demo-conn1: "NOS_CONN"
           demo-conn2: "NOS_CONN"
-      - name: "hand_vs_csv_ER"
+      - name: "Match_ExecutionReports_between_fix_and_csv_file"
         enabled: true
-        match_timeout: 2300
+        match_timeout: 300000
         match_timeout_offset_ns: 0
         configuration:
-          csv_test.csv: "ER_CSV"
+          demo-csv: "ER_CSV"
           demo-conn1: "ER_CONN"
           demo-conn2: "ER_CONN"
-      - name: "demo_conn1_vs_demo_conn2"
+      - name: "Match_trades_by_TrdMatchID"
         enabled: true
-        match_timeout: 300
+        match_timeout: 3000
         match_timeout_offset_ns: 0
         configuration:
           demo-conn1: "ER_FIX01"
           demo-conn2: "ER_FIX02"
-      - name: "log_vs_demo_conn"
+      - name: "Match_Orders_between_the_system_logs_and_FIX"
         enabled: true
-        match_timeout: 300
+        match_timeout: 300000
         match_timeout_offset_ns: 0
         configuration:
           demo-conn1: "NOS_CONN"
           demo-conn2: "NOS_CONN"
           demo-log: "NOS_LOG"
+      - name: "Match_ExecutionReports_with_dropcopy"
+        enabled: true
+        match_timeout: 3000
+        match_timeout_offset_ns: 0
+        configuration:
+          demo-conn1: "ER_FIX"
+          demo-conn2: "ER_FIX"
+          demo-dc1: "ER_DC"
+          demo-dc2: "ER_DC"
   pins:
     - name: incoming
       connection-type: mq
