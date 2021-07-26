@@ -4,13 +4,24 @@ metadata:
   name: read-csv
 spec:
   image-name: ghcr.io/th2-net/th2-read-csv
-  image-version: 1.0.1
+  image-version: stub
   type: th2-read
   custom-config:
-    sourceDirectory: "/outputs/"
+    sourceDirectory: "${user.home}/demo_outputs/"
     aliases:
-      csv_test:
+      demo-csv:
         nameRegexp: "csv_test.csv"
+    common:
+      staleTimeout: "PT1S"
+      maxBatchSize: 100
+      maxPublicationDelay: "PT5S"
+      leaveLastFileOpen: false
+      fixTimestamp: false
+      maxBatchesPerSecond: -1 # unlimited
+      disableFileMovementTracking: true
+    pullingInterval: "PT5S"
+    validateContent: false
+    validateOnlyExtraData: false
   pins:
     - name: out_log
       connection-type: mq
@@ -19,13 +30,12 @@ spec:
         - publish
         - store
   extended-settings:
+    externalBox:
+      enabled: true
     service:
       enabled: false
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
-    mounting:
-      - path: "/outputs"
-        pvcName: components
     resources:
       limits:
         memory: 200Mi
@@ -33,3 +43,5 @@ spec:
       requests:
         memory: 100Mi
         cpu: 50m
+  prometheus:
+    enabled: false

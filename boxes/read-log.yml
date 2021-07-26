@@ -4,10 +4,10 @@ metadata:
   name: read-log
 spec:
   image-name: ghcr.io/th2-net/th2-read-log
-  image-version: 3.1.0
+  image-version: stub
   type: th2-read
   custom-config:
-    logDirectory: "/outputs"
+    logDirectory: "${user.home}/demo_outputs/"
     aliases:
       demo-log:
         regexp: "8=FIX.+10=.+\\b\\u0001"
@@ -21,13 +21,12 @@ spec:
         - publish
         - store
   extended-settings:
+    externalBox:
+      enabled: true
     service:
       enabled: false
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
-    mounting:
-      - path: "/outputs"
-        pvcName: components
     resources:
       limits:
         memory: 200Mi
@@ -35,3 +34,5 @@ spec:
       requests:
         memory: 100Mi
         cpu: 20m
+  prometheus:
+    enabled: false
