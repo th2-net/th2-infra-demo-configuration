@@ -5,6 +5,22 @@ This version based on infra 1.5.3
 Components versions are updated. 
 Please note that messages from act-fix to conn now pass through codec-fix encoder.
 
+### Scenario execution:
+For the proper scenario execution, it is necessary to start some boxes outside the cluster: 
+
+A simulator that simulates the operation of a remote test system and is capable of producing an outputs in the form of the fix protocol and in the form of files. 
+
+And two read boxes - read-log and read-csv, which read the files produced by the emulator of the test system and send the data to the th2 system.
+
+Simulator: TODO
+
+Read-log: https://github.com/th2-net/th2-read-log/tree/demo-ver-1.5.3-local
+
+Read-csv: https://github.com/th2-net/th2-read-csv/tree/demo-ver-1.5.3-local
+
+Instructions to launch applications outside the cluster(ExternalBox functionality): https://github.com/th2-net/th2-documentation/wiki/Connecting-external-box-to-cluster-using-kubectl
+
+
 ### Work in progress:
 We want to provide you with a convenient example of the operation of our components for reading logs and csv-files, as well as reconciliation of data obtained from these sources. At the moment, we are looking for a convenient way to work with files on this test bench.
 ## Configuring Schema ##
