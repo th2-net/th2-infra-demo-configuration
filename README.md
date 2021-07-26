@@ -8,22 +8,34 @@ Please note that messages from act-fix to conn now pass through codec-fix encode
 ### Scenario execution:
 For the proper scenario execution, it is necessary to start some boxes outside the cluster: 
 
-A simulator that simulates the operation of a remote test system and is capable of producing an outputs in the form of the fix protocol and in the form of files. 
+A **simulator** that simulates the operation of a remote test system and is capable of producing an outputs in the form of the fix protocol and in the form of files. 
 
-And two read boxes - read-log and read-csv, which read the files produced by the emulator of the test system and send the data to the th2 system.
+And two read boxes - **read-log** and **read-csv**, which read the files produced by the emulator of the test system and send the data to the th2 system.
 
-Simulator: TODO
 
-Read-log: https://github.com/th2-net/th2-read-log/tree/demo-ver-1.5.3-local
+### Execution steps:
+ℹ️  **Instructions to launch applications outside the cluster(ExternalBox functionality):** https://github.com/th2-net/th2-documentation/wiki/Connecting-external-box-to-cluster-using-kubectl
+1. Create new namespace using CRs from this branch (please find general information about namespace creation below).
+2. Launch the simulator - test system emulator producing FIX responses and file output (default output path is folder **demo_outputs** in user home folder).
 
-Read-csv: https://github.com/th2-net/th2-read-csv/tree/demo-ver-1.5.3-local
+    **Simulator**: TODO
+3. Launch the test script.
 
-Instructions to launch applications outside the cluster(ExternalBox functionality): https://github.com/th2-net/th2-documentation/wiki/Connecting-external-box-to-cluster-using-kubectl
+    **Test script**: https://github.com/th2-net/th2-demo-script/tree/ver-1.5.3-main_scenario
+4. Launch both reads to process file outputs (default output path is folder **demo_outputs** in user home folder).
 
+    **Read-log:** https://github.com/th2-net/th2-read-log/tree/demo-ver-1.5.3-local
+
+    **Read-csv:** https://github.com/th2-net/th2-read-csv/tree/demo-ver-1.5.3-local
 
 ### Work in progress:
 We want to provide you with a convenient example of the operation of our components for reading logs and csv-files, as well as reconciliation of data obtained from these sources. At the moment, we are looking for a convenient way to work with files on this test bench.
-## Configuring Schema ##
+
+## Environment schema
+![alt text](schema-ver-153.png)
+
+
+# General information about configuring Schema #
 
 Schema can be configured to be deployed to kubernetes and managed by infra manager.
 Behaviour is controlled by `k8s-propagation` property in the `infra-mgr-config.yml` file.
@@ -35,8 +47,6 @@ These are the possible values for this property:
 - `rule` - Synchronizes repository changes with kubernetes. Also monitors resource changes in kubernetes and 
          brings them back to repository state
   
-
-
 ## Creating new namespace
 1) Create a new branch based on master
 2) Make all the wanted changes in the `CRs`.
@@ -59,5 +69,4 @@ There are two methods to restart the namespace
 ## Restarting single component
 in order to restart single component just delete `pod` of that specific component using `kubectl delete pod POD_NAME -n POD_NAMESPACE` command or using kubernetes dashboard (if you have necessary privileges). After deleting, `pod` will be recreated automatically.  
 
-## Environment schema
-![alt text](schema-ver-153.png)
+
