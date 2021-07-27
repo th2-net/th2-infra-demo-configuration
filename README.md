@@ -15,14 +15,14 @@ And two read boxes - **read-log** and **read-csv**, which read the files produce
 
 ### Execution steps:
 ℹ️  **Instructions to launch applications outside the cluster(ExternalBox functionality):** https://github.com/th2-net/th2-documentation/wiki/Connecting-external-box-to-cluster-using-kubectl
-1. Create new namespace using CRs from this branch (please find general information about namespace creation below).
-2. Launch the simulator - test system emulator producing FIX responses and file output (default output path is folder **demo_outputs** in user home folder).
+1. **Create new namespace using CRs from this branch** (please find general information about namespace creation below).
+2. **Launch the simulator - test system emulator producing FIX responses and file output** (default output path is folder **demo_outputs** in user home folder).
 
     **Simulator**: https://github.com/th2-net/th2-sim-template/tree/demo-ver-1.5.3-local
-3. Launch the test script.
+3. **Launch the test script.**
 
     **Test script**: https://github.com/th2-net/th2-demo-script/tree/ver-1.5.3-main_scenario
-4. Launch both reads to process file outputs (default output path is folder **demo_outputs** in user home folder).
+4. **Launch both reads to process file outputs** (default output path is folder **demo_outputs** in user home folder).
 
     **Read-log:** https://github.com/th2-net/th2-read-log/tree/demo-ver-1.5.3-local
 
