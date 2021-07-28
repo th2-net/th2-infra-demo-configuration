@@ -1,9 +1,16 @@
-## Version (this version is under development) ##
+## Version 1.5.3 - main scenario ##
 
 This version based on infra 1.5.3
 
-Components versions are updated. 
-Please note that messages from act-fix to conn now pass through codec-fix encoder.
+### Changelist: ###
+Previous: https://github.com/th2-net/th2-infra-schema-demo/tree/ver-1.3.0
+
+* **Components versions are updated.**
+
+* **Changed message flow from act to conn and from sim to conn:** ⚠️please note that parsed messages should now be converted to raw using codec encoder.
+
+* **Added read-csv and codec-csv:** using them, we read the csv file and reconcile its contents against the FIX messages.
+* **All links are now described inside one file:** this helps to reduce the number of entities inside the Kubernetes and makes the search for links more convenient.
 
 ### Scenario execution:
 For the proper scenario execution, it is necessary to start some boxes outside the cluster: 
@@ -28,8 +35,6 @@ And two read boxes - **read-log** and **read-csv**, which read the files produce
 
     **Read-csv:** https://github.com/th2-net/th2-read-csv/tree/demo-ver-1.5.3-local
 
-### Work in progress:
-We want to provide you with a convenient example of the operation of our components for reading logs and csv-files, as well as reconciliation of data obtained from these sources. At the moment, we are looking for a convenient way to work with files on this test bench.
 
 ## Environment schema
 ![alt text](schema-ver-153.png)
