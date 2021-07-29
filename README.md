@@ -1,6 +1,6 @@
-## Version 1.5.3 - main scenario ##
+## Version 1.5.4 - main scenario ##
 
-This version based on infra 1.5.3
+This version based on [infra 1.5.4](https://github.com/th2-net/th2-infra/tree/release-v1.5.4)
 
 ### Changelist: ###
 Previous: https://github.com/th2-net/th2-infra-schema-demo/tree/ver-1.3.0
@@ -25,19 +25,19 @@ And two read boxes - **read-log** and **read-csv**, which read the files produce
 1. **Create new namespace using CRs from this branch** (please find general information about namespace creation below).
 2. **Launch the simulator - test system emulator producing FIX responses and file output** (default output path is folder **demo_outputs** in user home folder).
 
-    **Simulator**: https://github.com/th2-net/th2-sim-template/tree/demo-ver-1.5.3-local
+    **Simulator**: https://github.com/th2-net/th2-sim-template/tree/demo-ver-1.5.4-local
 3. **Launch the test script.**
 
-    **Test script**: https://github.com/th2-net/th2-demo-script/tree/ver-1.5.3-main_scenario
+    **Test script**: https://github.com/th2-net/th2-demo-script/tree/ver-1.5.4-main_scenario
 4. **Launch both reads to process file outputs** (default output path is folder **demo_outputs** in user home folder).
 
-    **Read-log:** https://github.com/th2-net/th2-read-log/tree/demo-ver-1.5.3-local
+    **Read-log:** https://github.com/th2-net/th2-read-log/tree/demo-ver-1.5.4-local
 
-    **Read-csv:** https://github.com/th2-net/th2-read-csv/tree/demo-ver-1.5.3-local
+    **Read-csv:** https://github.com/th2-net/th2-read-csv/tree/demo-ver-1.5.4-local
 
 
 ## Environment schema
-![alt text](schema-ver-153.png)
+![alt text](schema-ver-154.png)
 
 
 # General information about configuring Schema #
