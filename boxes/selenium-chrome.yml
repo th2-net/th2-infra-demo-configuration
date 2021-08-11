@@ -1,0 +1,26 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: selenium-chrome
+spec:
+  image-name: selenium/standalone-chrome
+  image-version: 3.141.59-20210311
+  type: th2-hand
+  extended-settings:
+    sharedMemory:
+      enabled: true
+    service:
+      enabled: true
+      type: NodePort
+      endpoints:
+        - name: 'grpc'
+          targetPort: 4444
+    envVariables:
+      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+    resources:
+      limits:
+        memory: 2048Mi
+        cpu: 800m
+      requests:
+        memory: 100Mi
+        cpu: 20m
