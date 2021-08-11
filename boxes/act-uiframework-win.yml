@@ -1,0 +1,30 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: act-uiframework-win
+spec:
+  image-name: ghcr.io/th2-net/th2-act-uiframework-win-demo
+  image-version: 1.2.0
+  type: th2-act
+  pins:
+    - name: server
+      connection-type: grpc
+    - name: to_hand
+      connection-type: grpc
+  extended-settings:
+    service:
+      enabled: true
+      type: NodePort
+      endpoints:
+        - name: 'grpc'
+          targetPort: 8080
+          nodePort: 31781
+    envVariables:
+      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+    resources:
+      limits:
+        memory: 200Mi
+        cpu: 200m
+      requests:
+        memory: 101Mi
+        cpu: 50m

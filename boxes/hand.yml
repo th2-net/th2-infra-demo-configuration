@@ -1,0 +1,44 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: hand
+spec:
+  image-name: ghcr.io/th2-net/th2-hand
+  image-version: 3.8.0
+  type: th2-hand
+  custom-config:
+    session-alias: "th2-hand-demo"
+    driversMapping:
+      win_session:
+        type: "windows"
+        url: "http://win_box_ip:4723"
+    rhOptions:
+      ReadClipboardAccess: true
+      useWebpImageEncoder: true
+      WebHeadlessMode: true
+  pins:
+    - name: send_raw
+      connection-type: mq
+      attributes:
+        - publish
+        - raw
+        - store
+    - name: server
+      connection-type: grpc
+  extended-settings:
+    service:
+      enabled: true
+      type: NodePort
+      endpoints:
+        - name: 'grpc'
+          targetPort: 8080
+          nodePort: "31816"
+    envVariables:
+      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+    resources:
+      limits:
+        memory: 400Mi
+        cpu: 600m
+      requests:
+        memory: 100Mi
+        cpu: 20m

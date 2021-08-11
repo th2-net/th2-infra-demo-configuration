@@ -1,0 +1,219 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Link
+metadata:
+  name: links
+spec:
+  ##############################################################################
+  ###                           DICTIONARIES                                 ###
+  ##############################################################################
+  dictionaries-relation:
+    - name: codec-fix-dictionary
+      box: codec-fix
+      dictionary:
+        name: fix50-generic
+        type: MAIN
+    ##############################################################################
+    - name: demo-dc2-dictionary
+      box: demo-dc2
+      dictionary:
+        name: fix50-generic
+        type: MAIN
+    ##############################################################################
+    - name: server2-dictionary
+      box: fix-demo-server2
+      dictionary:
+        name: fix50-generic
+        type: MAIN
+    ##############################################################################
+    - name: serverdc2-dictionary
+      box: dc-demo-server2
+      dictionary:
+        name: fix50-generic
+        type: MAIN
+    ##############################################################################
+    - name: codec-sim-dictionary
+      box: codec-sim-fix
+      dictionary:
+        name: fix50-generic
+        type: MAIN
+  ##############################################################################
+  ###                           BOXES MQ                                     ###
+  ##############################################################################
+  boxes-relation:
+    router-mq:
+      ##############################################################################
+      #####################CODEC-FIX -> CHECK1######################################
+      - name: codec-to-check1
+        from:
+          box: codec-fix
+          pin: out_codec_decode
+        to:
+          box: check1
+          pin: from_codec
+      ##############################################################################
+      #####################RPT-DATA-PROVIDER -> CODEC-FIX###########################
+      - name: provider-to-codec-demo
+        from:
+          box: rpt-data-provider
+          pin: to_codec
+        to:
+          box: codec-fix
+          pin: in_codec_general_decode
+      ##############################################################################
+      #####################CODEC-FIX -> RPT-DATA-PROVIDER###########################
+      - name: codec-to-provider
+        from:
+          box: codec-fix
+          pin: out_codec_general_decode
+        to:
+          box: rpt-data-provider
+          pin: from_codec
+      ##############################################################################
+      #####################RPT-DATA-PROVIDER -> CODEC-HAND###########################
+      - name: provider-to-codec-hand
+        from:
+          box: rpt-data-provider
+          pin: to_codec_hand
+        to:
+          box: codec-hand
+          pin: in_codec_general_decode
+      ##############################################################################
+      #####################HAND -> CODEC-HAND#######################################
+      - name: hand-to-codec-hand
+        from:
+          box: hand
+          pin: send_raw
+        to:
+          box: codec-hand
+          pin: in_codec_decode
+      ##############################################################################
+      #####################CODEC-HAND -> CODEC-FIX#############################
+      - name: codec-hand-to-codec-fix
+        from:
+          box: codec-hand
+          pin: out_codec_general_decode
+        to:
+          box: codec-fix
+          pin: in_codec_general_decode
+      - name: codec-hand-to-codec-fix-2
+        from:
+          box: codec-hand
+          pin: out_codec_decode
+        to:
+          box: codec-fix
+          pin: in_codec_decode
+      ##############################################################################
+      #####################DEMO-DC2(FIRST) -> CODEC-FIX#############################
+      - name: demodc2-codec
+        from:
+          box: demo-dc2
+          pin: in_raw
+        to:
+          box: codec-fix
+          pin: in_codec_decode
+      ##############################################################################
+      #####################DEMO-DC2(SECOND) -> CODEC-FIX############################
+      - name: demo-dc2_out-codec
+        from:
+          box: demo-dc2
+          pin: out_raw
+        to:
+          box: codec-fix
+          pin: in_codec_decode
+      ##############################################################################
+      #####################SIM-DEMO -> CODEC-SIM####################################
+      - name: sim-server2
+        from:
+          box: sim-demo
+          pin: send1
+        to:
+          box: codec-sim-fix
+          pin: in_codec_encode
+      ##############################################################################
+      #####################SIM-DEMO -> CODEC-SIM####################################
+      - name: serverdc2
+        from:
+          box: sim-demo
+          pin: send2
+        to:
+          box: codec-sim-fix
+          pin: in_codec_encode
+      ##############################################################################
+      #####################CODEC-SIM-FIX -> SIM-DEMO################################
+      - name: codec-sim-to-sim
+        from:
+          box: codec-sim-fix
+          pin: out_codec_decode
+        to:
+          box: sim-demo
+          pin: subscribe
+      ##############################################################################
+      #####################CODEC-SIM -> FIX-DEMO-SERVER2############################
+      - name: codec-fix-server2
+        from:
+          box: codec-sim-fix
+          pin: out_codec_encode
+        to:
+          box: fix-demo-server2
+          pin: fix_to_send
+      ##############################################################################
+      #####################CODEC-SIM -> DC-DEMO-SERVER2#############################
+      - name: codec-dc-server2
+        from:
+          box: codec-sim-fix
+          pin: out_codec_encode
+        to:
+          box: dc-demo-server2
+          pin: fix_to_send
+      ##############################################################################
+      #####################FIX-DEMO-SERVER2 -> CODEC-SIM############################
+      - name: server2-codec
+        from:
+          box: fix-demo-server2
+          pin: in_raw
+        to:
+          box: codec-sim-fix
+          pin: in_codec_decode
+
+    ##############################################################################
+    ###                         BOXES GRPC                                     ###
+    ##############################################################################
+    router-grpc:
+      ##############################################################################
+      #####################ACT-uiFramework-WIN -> HAND##########################################
+      - name: act-uiframework-win-to-hand
+        from:
+          strategy: filter
+          box: act-uiframework-win
+          pin: to_hand
+        to:
+          service-class: com.exactpro.th2.act.grpc.hand.RhBatchService
+          strategy: robin
+          box: hand
+          pin: server
+      ##############################################################################
+      #####################SCRIPT -> ACT-FIX########################################
+      - name: script-to-act
+        from:
+          service-class: com.exactpro.th2.uiframework.services.UIFrameworkDemoServiceImplementation
+          strategy: filter
+          box: script-entry-point
+          pin: to_act
+        to:
+          service-class: com.exactpro.th2.uiframework.demo.win.grpc.UIFrameworkActService
+          strategy: robin
+          box: act-uiframework-win
+          pin: server
+      ##############################################################################
+      #####################SCRIPT -> CHECK1#########################################
+      - name: script-to-check1
+        from:
+          service-class: com.exactpro.th2.check1.Check1Handler
+          strategy: filter
+          box: script-entry-point
+          pin: to_check1
+        to:
+          service-class: com.exactpro.th2.check1.grpc.Check1Service
+          strategy: robin
+          box: check1
+          pin: server
