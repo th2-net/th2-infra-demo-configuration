@@ -4,17 +4,16 @@ metadata:
   name: act-fix
 spec:
   image-name: ghcr.io/th2-net/th2-act-template-j
-  image-version: 3.4.1
+  image-version: 3.5.0
   type: th2-act
   pins:
-    # Server
     - name: server
-      connection-type: grpc
-    # Client
+      connection-type: grpc-server
+      service-classes:
+       - com.exactpro.th2.act.grpc.ActService
     - name: to_check1
-      connection-type: grpc
-    - name: to_script
-      connection-type: grpc
+      connection-type: grpc-client
+      service-class: com.exactpro.th2.check1.grpc.Check1Service
     - name: from_codec
       connection-type: mq
       attributes:

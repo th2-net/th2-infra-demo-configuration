@@ -3,6 +3,7 @@ kind: Th2Box
 metadata:
   name: recon
 spec:
+  # TO DO
   image-name: ghcr.io/th2-net/th2-check2-recon-template
   image-version: 3.3.1.dev1059626422
   type: th2-check2-recon
@@ -60,10 +61,11 @@ spec:
         - parsed
         - subscribe
     - name: to_util
-      connection-type: grpc
+      connection-type: grpc-client
+      service-class: com.exactpro.th2.util.grpc.MessageComparatorService
   extended-settings:
     service:
-      enabled: "false"
+      enabled: true
     resources:
       limits:
         memory: 400Mi

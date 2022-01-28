@@ -83,7 +83,7 @@ spec:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:
       limits:
-        memory: 201Mi
+        memory: 200Mi
         cpu: 200m
       requests:
         memory: 100Mi

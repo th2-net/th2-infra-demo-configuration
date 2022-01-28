@@ -7,12 +7,12 @@ spec:
   image-version: dev-script
   type: th2-script
   pins:
-    - name: server
-      connection-type: grpc
     - name: to_act
-      connection-type: grpc
+      connection-type: grpc-client
+      service-class: com.exactpro.th2.act.grpc.ActService
     - name: to_check1
-      connection-type: grpc
+      connection-type: grpc-client
+      service-class: com.exactpro.th2.check1.grpc.Check1Service
   extended-settings:
     externalBox:
       enabled: true

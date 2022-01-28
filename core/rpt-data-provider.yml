@@ -31,6 +31,10 @@ spec:
         - to_codec
         - raw
         - publish
+        - fix-demo-server1
+        - fix-demo-server2
+        - dc-demo-server1
+        - fix-demo-server2
         - demo-conn1
         - demo-conn2
         - demo-dc1
@@ -51,7 +55,7 @@ spec:
         - subscribe
   extended-settings:
     service:
-      enabled: false
+      enabled: true
       type: NodePort
       endpoints:
         - name: 'grpc'

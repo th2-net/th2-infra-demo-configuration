@@ -8,15 +8,17 @@ spec:
   type: th2-util
   pins:
     - name: server
-      connection-type: grpc
+      connection-type: grpc-server
+      service-classes:
+        - com.exactpro.th2.util.grpc.MessageComparatorService
   extended-settings:
     service:
-      enabled: false
+      enabled: true
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:
       limits:
-        memory: 210Mi
+        memory: 200Mi
         cpu: 200m
       requests:
         memory: 100Mi

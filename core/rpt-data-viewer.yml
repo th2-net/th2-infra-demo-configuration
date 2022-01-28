@@ -11,10 +11,6 @@ spec:
   extended-settings:
     service:
       enabled: true
-      type: ClusterIP
-      endpoints:
-        - name: 'gui'
-          targetPort: 8080
     envVariables:
       JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
     resources:

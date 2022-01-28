@@ -156,31 +156,13 @@ spec:
           pin: to_codec_fix
         to:
           box: codec-fix
-          pin: in_codec_decode
-##############################################################################
-#####################RPT-DATA-PROVIDER -> CODEC-FIX-DEMO######################
-      - name: provider-to-codec-demo
-        from:
-          box: rpt-data-provider
-          pin: to_codec_fix
-        to:
-          box: codec-fix-demo
-          pin: in_codec_decode
+          pin: in_codec_general_decode
 ##############################################################################
 #####################CODEC-FIX -> RPT-DATA-PROVIDER###########################
       - name: codec-to-provider
         from:
           box: codec-fix
-          pin: out_codec_decode
-        to:
-          box: rpt-data-provider
-          pin: from_codec
-##############################################################################
-#####################CODEC-FIX-DEMO -> RPT-DATA-PROVIDER######################
-      - name: codec-fix-demo-to-provider
-        from:
-          box: codec-fix-demo
-          pin: out_codec_decode
+          pin: out_codec_general_decode
         to:
           box: rpt-data-provider
           pin: from_codec
@@ -192,13 +174,13 @@ spec:
           pin: to_codec_csv
         to:
           box: codec-csv
-          pin: in_codec_decode
+          pin: in_codec_general_decode
 ##############################################################################
 #####################CODEC-CSV -> RPT-DATA-PROVIDER###########################
       - name: codec-c-to-provider
         from:
           box: codec-csv
-          pin: out_codec_decode
+          pin: out_codec_general_decode
         to:
           box: rpt-data-provider
           pin: from_codec
@@ -425,50 +407,35 @@ spec:
 #####################ACT-FIX -> CHECK1########################################
       - name: act-to-check1
         from:
-          service-class: com.exactpro.th2.check1.Check1Handler
-          strategy: filter
           box: act-fix
           pin: to_check1
         to:
-          service-class: com.exactpro.th2.check1.grpc.Check1Service
-          strategy: robin
           box: check1
           pin: server
 ##############################################################################
 #####################RECON -> UTIL############################################
       - name: recon-to-util
         from:
-          strategy: filter
           box: recon
           pin: to_util
         to:
-          service-class: com.exactpro.th2.util.grpc.MessageComparatorService
-          strategy: robin
           box: util
           pin: server
 ##############################################################################
 #####################SCRIPT -> ACT-FIX########################################
       - name: script-to-act
         from:
-          service-class: com.exactpro.th2.act.ActHandler
-          strategy: filter
           box: script-entry-point
           pin: to_act
         to:
-          service-class: com.exactpro.th2.act.grpc.ActService
-          strategy: robin
           box: act-fix
           pin: server
 ##############################################################################
 #####################SCRIPT -> CHECK1#########################################
       - name: script-to-check1
         from:
-          service-class: com.exactpro.th2.check1.Check1Handler
-          strategy: filter
           box: script-entry-point
           pin: to_check1
         to:
-          service-class: com.exactpro.th2.check1.grpc.Check1Service
-          strategy: robin
           box: check1
           pin: server

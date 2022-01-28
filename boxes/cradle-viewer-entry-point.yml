@@ -19,6 +19,9 @@ spec:
       attributes:
         - parsed
         - subscribe
+      settings:
+        storageOnDemand: false
+        queueLength: 1000
   extended-settings:
     externalBox:
       enabled: true

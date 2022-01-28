@@ -25,7 +25,6 @@ spec:
         - decode_out
         - parsed
         - publish
-        - store
     # decoder general (technical)
     - name: in_codec_general_decode
       connection-type: mq

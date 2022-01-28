@@ -1,16 +1,13 @@
-## Version 1.5.4 - main scenario ##
+## Version 1.6.1 - main scenario ##
 
-This version based on [infra 1.5.4](https://github.com/th2-net/th2-infra/tree/release-v1.5.4)
+This version based on [infra 1.6.1](https://github.com/th2-net/th2-infra/releases/tag/v.1.6.1)
 
 ### Changelist: ###
-Previous: https://github.com/th2-net/th2-infra-schema-demo/tree/ver-1.3.0
+Previous: https://github.com/th2-net/th2-infra-schema-demo/tree/ver-1.5.4-main_scenario
 
 * **Components versions are updated.**
 
-* **Changed message flow from act to conn and from sim to conn:** ⚠️please note that parsed messages should now be converted to raw using codec encoder.
-
-* **Added read-csv and codec-csv:** using them, we read the csv file and reconcile its contents against the FIX messages.
-* **All links are now described inside one file:** this helps to reduce the number of entities inside the Kubernetes and makes the search for links more convenient.
+* **Changed grpc links logic. Service-class declaration moved from link level to pin level.**
 
 ### Scenario execution:
 For the proper scenario execution, it is necessary to start some boxes outside the cluster: 
@@ -22,7 +19,7 @@ And two read boxes - **read-log** and **read-csv**, which read the files produce
 
 ### Execution steps:
 ℹ️  **Instructions to launch applications outside the cluster(ExternalBox functionality):** https://github.com/th2-net/th2-documentation/wiki/Connecting-external-box-to-cluster-using-kubectl
-1. **Create new namespace using CRs from this branch** (please find general information about namespace creation below).
+1. **Create a new namespace using CRs from this branch** (please find general information about namespace creation below).
 2. **Launch the simulator - test system emulator producing FIX responses and file output** (default output path is folder **demo_outputs** in user home folder).
 
     **Simulator**: https://github.com/th2-net/th2-sim-template/tree/demo-ver-1.5.4-local
@@ -37,7 +34,7 @@ And two read boxes - **read-log** and **read-csv**, which read the files produce
 
 
 ## Environment schema
-![alt text](schema-ver-154.png)
+![alt text](schema-ver-161.png)
 
 
 # General information about configuring Schema #
