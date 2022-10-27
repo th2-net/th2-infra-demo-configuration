@@ -11,19 +11,13 @@ spec:
     port: 8080
     responseTimeout: 60000
     serverCacheTimeout: 60000
-    clientCacheTimeout: 60
-    eventCacheSize: 100000
-    messageCacheSize: 100000
-    ioDispatcherThreadPoolSize: 15
-    codecCacheSize: 1000
-    codecBatchesCacheSize: 200
-    maxMessagesLimit: 5000
-    messageSearchPipelineBuffer: 2000
-    rabbitBatchMergeBuffer: 2000
-    rabbitMergedBatchSize: 128
-    decodeMessageConsumerCount: 16
-    cradleDispatcherPoolSize: 15
-    eventSearchChunkSize: 10000
+    eventCacheSize: 1
+    messageCacheSize: 1
+    ioDispatcherThreadPoolSize: 10
+    cradleDispatcherPoolSize: 10
+    eventSearchChunkSize: 1
+    codecResponseTimeout: 20000
+    codecPendingBatchLimit: 4
   pins:
     - name: to_codec_fix
       connection-type: mq
