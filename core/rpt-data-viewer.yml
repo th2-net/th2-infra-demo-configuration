@@ -4,7 +4,7 @@ metadata:
   name: rpt-data-viewer
 spec:
   image-name: ghcr.io/th2-net/th2-rpt-viewer
-  image-version: 3.1.55
+  image-version: 5.0.39
   type: th2-rpt-viewer
   prometheus:
     enabled: true

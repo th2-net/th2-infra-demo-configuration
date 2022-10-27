@@ -4,7 +4,7 @@ metadata:
   name: codec-sim-fix
 spec:
   image-name: ghcr.io/th2-net/th2-codec-fix
-  image-version: 3.9.0
+  image-version: 3.10.5
   type: th2-codec
   custom-config:
     outgoingEventBatchBuildTime: 1

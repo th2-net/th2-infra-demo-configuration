@@ -4,7 +4,7 @@ metadata:
   name: rpt-data-provider
 spec:
   image-name: ghcr.io/th2-net/th2-rpt-data-provider
-  image-version: 5.0.15
+  image-version: 5.4.15
   type: th2-rpt-data-provider
   custom-config:
     hostname: localhost

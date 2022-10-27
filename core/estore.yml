@@ -4,9 +4,24 @@ metadata:
   name: estore
 spec:
   image-name: ghcr.io/th2-net/th2-estore
-  image-version: 3.6.0
+  image-version: 4.1.0
+  cradleManager:
+    prepareStorage: true
+    cradleMaxEventBatchSize: 2097152
   custom-config:
-    cradleInstanceName: instance1
+    maxTaskCount: 1024 #maximum number of messages that will be processed simultaneously
+    maxTaskDataSize: 256000000 #maximum total data size of events during parallel processing 133169152
+    maxRetryCount: 3 #maximum number of event persistence retries in case of failure
+    retryDelayBase: 50000 #constant that will be used to calculate next retry time(ms):retryDelayBase * retry_number
+  loggingConfig: |
+    name = CommonConfig
+    status = warn    
+    appender.console.type = Console
+    appender.console.name = ConsoleLogger
+    appender.console.layout.type = PatternLayout
+    appender.console.layout.pattern = %d{dd MMM yyyy HH:mm:ss,SSS} %-6p [%-15t] %c - %m%n
+    rootLogger.level = INFO
+    rootLogger.appenderRef.stdout.ref = ConsoleLogger
   extended-settings:
     service:
       enabled: false

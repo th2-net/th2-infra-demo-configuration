@@ -4,7 +4,7 @@ metadata:
   name: fix-demo-server2
 spec:
   image-name: ghcr.io/th2-net/th2-conn-fix
-  image-version: 3.2.1
+  image-version: 3.7.2
   type: th2-conn
   custom-config:
     session-alias: fix-demo-server2

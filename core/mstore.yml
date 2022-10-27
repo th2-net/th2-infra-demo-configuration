@@ -4,7 +4,23 @@ metadata:
   name: mstore
 spec:
   image-name: ghcr.io/th2-net/th2-mstore
-  image-version: 3.5.0
+  image-version: 4.1.0
+  cradleManager:
+    cradleMaxEventBatchSize: 3097152
+  custom-config:
+    maxTaskCount: 1000 #maximum number of messages that will be processed simultaneously
+    maxTaskDataSize: 180000 #maximum total data size of events during parallel processing 133169152
+    maxRetryCount: 3 #maximum number of event persistence retries in case of failure
+    retryDelayBase: 5000 #constant that will be used to calculate next retry time(ms):retryDelayBase * retry_number
+  loggingConfig: |
+    name = CommonConfig
+    status = warn    
+    appender.console.type = Console
+    appender.console.name = ConsoleLogger
+    appender.console.layout.type = PatternLayout
+    appender.console.layout.pattern = %d{dd MMM yyyy HH:mm:ss,SSS} %-6p [%-15t] %c - %m%n
+    rootLogger.level = INFO
+    rootLogger.appenderRef.stdout.ref = ConsoleLogger
   extended-settings:
     service:
       enabled: false

@@ -4,7 +4,7 @@ metadata:
   name: codec-csv
 spec:
   image-name: ghcr.io/th2-net/th2-codec-csv
-  image-version: 3.1.0
+  image-version: 3.2.1
   type: th2-codec
   custom-config:
     default-header: [CsvRecordType,OrderQty,OrdType,SecurityIDSource,ClOrdID,OrderCapacity,AccountType,Side,Price,SecurityID,TransactTime,SecondaryClOrdID,OrderID,ExecID,LeavesQty,Text,ExecType,OrdStatus,CumQty]

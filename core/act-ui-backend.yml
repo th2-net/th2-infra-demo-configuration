@@ -4,7 +4,7 @@ metadata:
   name: act-ui-backend
 spec:
   image-name: ghcr.io/th2-net/th2-act-ui-backend
-  image-version: 0.3.0
+  image-version: 1.0.7
   type: th2-rpt-data-provider
   custom-config:
     responseTimeout: 60000
@@ -20,7 +20,6 @@ spec:
     - name: to-fix-codec
       connection-type: mq
       attributes:
-        # enter the target session name here
         - demo-conn1
         - demo-conn2
         - to_conn
