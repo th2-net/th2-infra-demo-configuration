@@ -14,8 +14,6 @@ spec:
         - publish
     - name: from_codec
       connection-type: mq
-      storageOnDemand: false
-      queueLength: 1000
       attributes:
         - parsed
         - subscribe
