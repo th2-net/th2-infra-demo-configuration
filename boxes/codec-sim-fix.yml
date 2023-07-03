@@ -1,92 +1,23 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2Box
 metadata:
   name: codec-sim-fix
 spec:
-  image-name: ghcr.io/th2-net/th2-codec-fix
-  image-version: 3.9.0
+  imageName: ghcr.io/th2-net/th2-codec-fix
+  imageVersion: 3.9.0
   type: th2-codec
-  custom-config:
+  customConfig:
     outgoingEventBatchBuildTime: 1
     maxOutgoingEventBatchSize: 99
     numOfEventBatchCollectorWorkers: 1
     codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
-  pins:
-    # encoder
-    - name: in_codec_encode
-      connection-type: mq
-      attributes:
-        - encoder_in
-        - parsed
-        - subscribe
-    - name: out_codec_encode
-      connection-type: mq
-      attributes:
-        - encoder_out
-        - raw
-        - publish
-    # decoder
-    - name: in_codec_decode
-      connection-type: mq
-      attributes:
-        - decoder_in
-        - raw
-        - subscribe
-    - name: out_codec_decode
-      connection-type: mq
-      attributes:
-        - decoder_out
-        - parsed
-        - publish
-    # encoder general (technical)
-    - name: in_codec_general_encode
-      connection-type: mq
-      attributes:
-        - general_encoder_in
-        - parsed
-        - subscribe
-    - name: out_codec_general_encode
-      connection-type: mq
-      attributes:
-        - general_encoder_out
-        - raw
-        - publish
-    # decoder general (technical)
-    - name: in_codec_general_decode
-      connection-type: mq
-      attributes:
-        - general_decoder_in
-        - raw
-        - subscribe
-    - name: out_codec_general_decode
-      connection-type: mq
-      attributes:
-        - general_decoder_out
-        - parsed
-        - publish
-    #out_codec_decode_fix-demo-server1
-    - name: out_fix-demo-server1
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: fix-demo-server1
-              operation: EQUAL
-    #out_codec_decode_fix-demo-server2
-    - name: out_fix-demo-server2
-      connection-type: mq
-      attributes: ["decoder_out", "parsed", "publish"]
-      filters:
-        - metadata:
-            - field-name: session_alias
-              expected-value: fix-demo-server2
-              operation: EQUAL
-  extended-settings:
-    service:
-      enabled: false
+    dictionaries:
+      MAIN: "${dictionary_link:fix50-generic}"
+  extendedSettings:
     envVariables:
-      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85"
+      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85
+    k8sProbes: false
+    hostNetwork: false
     resources:
       limits:
         memory: 250Mi
@@ -94,3 +25,84 @@ spec:
       requests:
         memory: 100Mi
         cpu: 20m
+    service:
+      enabled: false
+  pins:
+    mq:
+      subscribers:
+      - name: in_codec_encode
+        attributes:
+        - encoder_in
+        - parsed
+        - subscribe
+        linkTo:
+        - box: sim-demo
+          pin: send1
+        - box: sim-demo
+          pin: send2
+        - box: sim-demo
+          pin: send3
+        - box: sim-demo
+          pin: send4
+      - name: in_codec_decode
+        attributes:
+        - decoder_in
+        - raw
+        - subscribe
+        linkTo:
+        - box: fix-demo-server1
+          pin: in_raw
+        - box: fix-demo-server2
+          pin: in_raw
+      - name: in_codec_general_encode
+        attributes:
+        - general_encoder_in
+        - parsed
+        - subscribe
+      - name: in_codec_general_decode
+        attributes:
+        - general_decoder_in
+        - raw
+        - subscribe
+      publishers:
+      - name: out_codec_encode
+        attributes:
+        - encoder_out
+        - raw
+        - publish
+      - name: out_codec_decode
+        attributes:
+        - decoder_out
+        - parsed
+        - publish
+      - name: out_codec_general_encode
+        attributes:
+        - general_encoder_out
+        - raw
+        - publish
+      - name: out_codec_general_decode
+        attributes:
+        - general_decoder_out
+        - parsed
+        - publish
+      - name: out_fix-demo-server1
+        attributes:
+        - decoder_out
+        - parsed
+        - publish
+        filters:
+        - metadata:
+          - expectedValue: fix-demo-server1
+            fieldName: session_alias
+            operation: EQUAL
+      - name: out_fix-demo-server2
+        attributes:
+        - decoder_out
+        - parsed
+        - publish
+        filters:
+        - metadata:
+          - expectedValue: fix-demo-server2
+            fieldName: session_alias
+            operation: EQUAL
+  disabled: false

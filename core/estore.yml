@@ -1,15 +1,13 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2Estore
 metadata:
   name: estore
 spec:
-  image-name: ghcr.io/th2-net/th2-estore
-  image-version: 3.6.0
-  custom-config:
+  imageName: ghcr.io/th2-net/th2-estore
+  imageVersion: 3.6.0
+  customConfig:
     cradleInstanceName: instance1
-  extended-settings:
-    service:
-      enabled: false
+  extendedSettings:
     resources:
       limits:
         memory: 500Mi
@@ -17,3 +15,5 @@ spec:
       requests:
         memory: 100Mi
         cpu: 20m
+    service:
+      enabled: false

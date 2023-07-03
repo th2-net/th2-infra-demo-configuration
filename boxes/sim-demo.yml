@@ -1,76 +1,35 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2Box
 metadata:
   name: sim-demo
 spec:
-  image-name: ghcr.io/th2-net/th2-sim-template
-  image-version: stub
+  imageName: ghcr.io/th2-net/th2-sim-template
+  imageVersion: stub
   type: th2-sim
-  custom-config:
+  customConfig:
     defaultRules:
-      - methodName: createDemoRule
-        enable: true
-        settings:
-          fields:
-          connection_id:
-            session_alias: fix-demo-server1
-      - methodName: createDemoRule
-        enable: true
-        settings:
-          fields:
-          connection_id:
-            session_alias: fix-demo-server2
-      - methodName: createRuleFixSecurity
-        enable: true
-        settings:
-          fields:
-          connection_id:
-            session_alias: fix-demo-server1
-  pins:
-    - name: subscribe
-      connection-type: mq
-      attributes:
-        - first
-        - subscribe
-        - parsed
+    - methodName: createDemoRule
+      enable: true
       settings:
-        storageOnDemand: false
-        queueLength: 1000
-    - name: send1
-      connection-type: mq
-      attributes:
-        - second
-        - publish
-        - parsed
-        - fix-demo-server1
-    - name: send2
-      connection-type: mq
-      attributes:
-        - second
-        - publish
-        - parsed
-        - fix-demo-server2
-    - name: send3
-      connection-type: mq
-      attributes:
-        - second
-        - publish
-        - parsed
-        - dc-demo-server1
-    - name: send4
-      connection-type: mq
-      attributes:
-        - second
-        - publish
-        - parsed
-        - dc-demo-server2
-  extended-settings:
+        connection_id:
+          session_alias: fix-demo-server1
+    - methodName: createDemoRule
+      enable: true
+      settings:
+        connection_id:
+          session_alias: fix-demo-server2
+    - methodName: createRuleFixSecurity
+      enable: true
+      settings:
+        connection_id:
+          session_alias: fix-demo-server1
+  extendedSettings:
+    envVariables:
+      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError
+    k8sProbes: false
     externalBox:
       enabled: true
-    service:
-      enabled: false
-    envVariables:
-      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+    hostNetwork: false
     resources:
       limits:
         memory: 200Mi
@@ -78,5 +37,47 @@ spec:
       requests:
         memory: 100Mi
         cpu: 20m
+    service:
+      enabled: false
+  pins:
+    mq:
+      subscribers:
+      - name: subscribe
+        attributes:
+        - first
+        - subscribe
+        - parsed
+        settings:
+          queueLength: 1000
+          storageOnDemand: false
+        linkTo:
+        - box: codec-sim-fix
+          pin: out_codec_decode
+      publishers:
+      - name: send1
+        attributes:
+        - second
+        - publish
+        - parsed
+        - fix-demo-server1
+      - name: send2
+        attributes:
+        - second
+        - publish
+        - parsed
+        - fix-demo-server2
+      - name: send3
+        attributes:
+        - second
+        - publish
+        - parsed
+        - dc-demo-server1
+      - name: send4
+        attributes:
+        - second
+        - publish
+        - parsed
+        - dc-demo-server2
   prometheus:
     enabled: false
+  disabled: false

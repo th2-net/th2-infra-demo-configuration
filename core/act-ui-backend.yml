@@ -1,12 +1,12 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2CoreBox
 metadata:
   name: act-ui-backend
 spec:
-  image-name: ghcr.io/th2-net/th2-act-ui-backend
-  image-version: 0.3.0
+  imageName: ghcr.io/th2-net/th2-act-ui-backend
+  imageVersion: 0.3.0
   type: th2-rpt-data-provider
-  custom-config:
+  customConfig:
     responseTimeout: 60000
     hostname: localhost
     port: 8080
@@ -14,28 +14,11 @@ spec:
     schemaDefinitionLink: http://th2-kube-demo:30000/editor/backend/schema/hand
     schemaDescriptorsLink: http://th2-kube-demo:30000/editor/backend/descriptor/hand
     namespace: th2-kube-demo
-    actTypes: [th2-act]
-
-  pins:
-    - name: to-fix-codec
-      connection-type: mq
-      attributes:
-        # enter the target session name here
-        - demo-conn1
-        - demo-conn2
-        - to_conn
-        - parsed
-        - publish
-  extended-settings:
-    service:
-      enabled: false
-      type: NodePort
-      endpoints:
-        - name: 'grpc'
-          targetPort: 8080
-          nodePort: 31357
+    actTypes:
+    - th2-act
+  extendedSettings:
     envVariables:
-      JAVA_TOOL_OPTIONS: '-XX:+UseContainerSupport -XX:MaxRAMPercentage=90'
+      JAVA_TOOL_OPTIONS: -XX:+UseContainerSupport -XX:MaxRAMPercentage=90
     resources:
       limits:
         memory: 700Mi
@@ -43,3 +26,19 @@ spec:
       requests:
         memory: 500Mi
         cpu: 50m
+    service:
+      enabled: false
+      nodePort:
+      - name: grpc
+        containerPort: 8080
+        exposedPort: 31357
+  pins:
+    mq:
+      publishers:
+      - name: to-fix-codec
+        attributes:
+        - demo-conn1
+        - demo-conn2
+        - to_conn
+        - parsed
+        - publish
